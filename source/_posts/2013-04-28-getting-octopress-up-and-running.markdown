@@ -29,19 +29,52 @@ rake install
 
 {% endcodeblock %}
 
-### Deploying to GitHub pages
+### About GitHub pages
 GitHub pages a free static web pages hosting provided by GitHub - requires GitHub account.
 
 - Setting up GitHub pages
 	- Check out GitHub on how to set up Git Hub Pages for more details.
 	- create a *git* repo named `{your_git_hub_account_name_here}.github.com`
 	- pushing any static html page will be accessible as web pages at `http://{your_git_hub_account_name_here}.github.io/`
-- Run 
 
 {% codeblock lang:ruby %}
+# setting up for github pages
+# See More on 'About GitHub Pages'
+# - create a forked version of octopress for the purpose of version controlling the octopres
+# - Update the octopress/.git/config
+#   - Ask for a git repo url for the project (not the git hub pages)
+#   - rename origin to octopress
+#     - the changes are not really the octopress core development, so no need for keeping origin
+#   - add origin to point to the git repo url from the earlier step
 rake setup_github_pages
 {% endcodeblock %}
+		
 
 ## Useful things to know about Octopress
 
-- `_deplou`
+- `_deploy`: where the *github pages repo* as sub module - see `_deploy/.git/config`
+- `source`: where the generated content by octopress to be further process by *Jekyll*. (??)
+  - `source/_post`: where the markdown files goes
+
+## Recommended Workflow
+
+
+{% codeblock lang:ruby %}
+
+# Create new post
+rake new_post["this is my first blog"]
+
+# Edit generated initial the markdown file
+vi source/_posts/20xx-12-31-this-is-my-first-blog.markdown 
+
+# Deploy to GitHub page
+# - commit and push github submodule in _deploy
+rake gen_deploy
+
+# Commit the new markdown file
+git add source/*
+
+# Push
+git push
+
+{% endcodeblock %}
