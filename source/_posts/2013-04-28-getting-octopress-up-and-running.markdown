@@ -74,7 +74,7 @@ rake gen_deploy
 # Commit the new markdown file
 git add source/*
 
-# Push
-git push
+# Push the source branch
+git push origin source
 
 {% endcodeblock %}
